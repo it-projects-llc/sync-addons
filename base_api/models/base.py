@@ -10,7 +10,6 @@ PREFIX = "__base_api__"
 
 
 class Base(models.AbstractModel):
-
     _inherit = "base"
 
     @api.model
@@ -59,7 +58,7 @@ class Base(models.AbstractModel):
                 result = imd_env._xmlid_lookup(PREFIX + "." + ext_id)[2]
             except ValueError as e:
                 raise ValueError(
-                    "No object with external id in field {}: {}".format(field, ext_id)
+                    f"No object with external id in field {field}: {ext_id}"
                 ) from e
             return result
 

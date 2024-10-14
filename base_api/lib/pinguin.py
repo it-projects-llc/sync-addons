@@ -290,6 +290,7 @@ def get_model_for_read(model, ENV=False):
 # Python > 3.5
 # def get_dict_from_record(record, spec: tuple, include_fields: tuple, exclude_fields: tuple):
 
+
 # Extract nested values from a record
 def get_dict_from_record(
     record, spec, include_fields, exclude_fields, ENV=False, delim="/"
@@ -314,7 +315,6 @@ def get_dict_from_record(
     validate_spec(record, _spec)
 
     for field in _spec:
-
         if isinstance(field, tuple):
             # It's a 2many (or a 2one specified as a list)
             if isinstance(field[1], list):
