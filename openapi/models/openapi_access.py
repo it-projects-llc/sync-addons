@@ -5,6 +5,7 @@
 import collections
 import inspect
 import json
+import logging
 import types
 import urllib.parse as urlparse
 from inspect import getmro, isclass
@@ -14,6 +15,8 @@ from odoo import _, api, exceptions, fields, models
 from odoo.addons.base_api.lib.pinguin import transform_strfields_to_dict
 
 from ..controllers import pinguin
+
+_logger = logging.getLogger(__name__)
 
 PARAM_ID = {
     "name": "id",
@@ -155,8 +158,7 @@ class Access(models.Model):
 
     def name_get(self):
         return [
-            (record.id, "{}/{}".format(record.namespace_id.name, record.model))
-            for record in self
+            (record.id, f"{record.namespace_id.name}/{record.model}") for record in self
         ]
 
     def get_OAS_paths_part(self):
@@ -365,7 +367,6 @@ class Access(models.Model):
 
         paths_object = {k: v for k, v in paths_object.items() if v}
         for _path_item_key, path_item_value in paths_object.items():
-
             for path_method in path_item_value.values():
                 # add tag
                 path_method.update({"tags": [model_name]})
@@ -504,8 +505,8 @@ def getmembers(obj, predicate=None):
             for k, v in base.__dict__.items():
                 if isinstance(v, types.DynamicClassAttribute):
                     names.append(k)
-    except AttributeError:
-        pass
+    except AttributeError as e:
+        _logger.warning(f"AttributeError encountered: {e}")
     for key in names:
         if key == "_cache":
             # NEW

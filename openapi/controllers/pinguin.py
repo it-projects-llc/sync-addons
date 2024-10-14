@@ -108,10 +108,8 @@ def successful_response(status, data=None):
         http://werkzeug.pocoo.org/docs/0.14/wrappers/#module-werkzeug.wrappers
 
     """
-    try:
+    if hasattr(data, "ids"):
         data = data.ids
-    except AttributeError:
-        pass
 
     return request.make_json_response(data, status=status)
 
@@ -315,10 +313,8 @@ def _create_log_record(
         elif namespace_log_request == "info":
             log_data["request_data"] = user_request.__dict__
             for k in ["form", "files"]:
-                try:
+                if k in log_data["request_data"]:
                     del log_data["request_data"][k]
-                except KeyError:
-                    pass
 
         if namespace_log_response == "debug":
             log_data["response_data"] = user_response.__dict__
@@ -344,7 +340,6 @@ def route(controller_method):
 
         @functools.wraps(controller_method)
         def controller_method_wrapper(*iargs, **ikwargs):
-
             auth_header = get_auth_header(
                 request.httprequest.headers, raise_exception=True
             )
@@ -569,7 +564,7 @@ def wrap__resource__create_one(modelname, context, data, success_code, out_field
     """
     model_obj = get_model_for_read(modelname)
     try:
-        created_obj = model_obj.with_context(context).create(data)
+        created_obj = model_obj.with_context(**context).create(data)
         test_mode = request.registry.test_cr
         if not test_mode:
             # Somehow don't making a commit here may lead to error
@@ -803,6 +798,7 @@ def method_is_allowed(method, methods_conf, main=False, raise_exception=False):
 ###############
 # Pinguin OAS #
 ###############
+
 
 # Get definition name
 def get_definition_name(modelname, prefix="", postfix="", splitter="-"):

@@ -14,7 +14,6 @@ from odoo.addons.base_api.lib import pinguin
 
 
 class Namespace(models.Model):
-
     _name = "openapi.namespace"
     _description = "Integration"
 

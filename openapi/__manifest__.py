@@ -6,11 +6,11 @@
     "summary": """RESTful API to integrate Odoo with whatever system you need""",
     "category": "",
     "images": ["images/openapi-swagger.png"],
-    "version": "16.0.1.2.4",
+    "version": "17.0.1.2.4",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "help@itpp.dev",
-    "website": "https://t.me/sync_studio",
+    "website": "https://github.com/it-projects-llc/sync-addons",
     "license": "LGPL-3",
     "depends": ["base_api", "mail"],
     "external_dependencies": {

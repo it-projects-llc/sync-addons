@@ -15,7 +15,6 @@ from odoo.tools import config
 @tagged("post_install", "-at_install")
 class TestJsonSpec(HttpCase):
     def test_json_base(self):
-
         resp = self.url_open(
             "http://localhost:%d/api/v1/demo/swagger.json?token=demo_token&download"
             % config["http_port"],
