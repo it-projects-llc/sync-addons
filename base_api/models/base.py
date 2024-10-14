@@ -55,7 +55,7 @@ class Base(models.AbstractModel):
 
         def convert_external_2_inner_id(ext_id, field):
             try:
-                result = imd_env._xmlid_lookup(PREFIX + "." + ext_id)[2]
+                result = imd_env._xmlid_lookup(PREFIX + "." + ext_id)[1]
             except ValueError as e:
                 raise ValueError(
                     f"No object with external id in field {field}: {ext_id}"
@@ -85,7 +85,7 @@ class Base(models.AbstractModel):
 
         # If external id exists...
         try:
-            inner_id = imd_env._xmlid_lookup(PREFIX + "." + ext_id)[2]
+            inner_id = imd_env._xmlid_lookup(PREFIX + "." + ext_id)[1]
         # No: Create record and register external_key
         except ValueError:
             is_new = True
