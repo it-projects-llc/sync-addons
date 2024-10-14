@@ -59,7 +59,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active == True"
                     />
                     <div class="oe_title">
                         <group>
@@ -74,12 +74,12 @@
                             <field name="api_public_methods" />
                             <field
                                 name="public_methods"
-                                attrs="{'invisible': [('api_public_methods', '=', False)]}"
+                                invisible="api_public_methods == False"
                             />
                             <field name="private_methods" />
                             <field
                                 name="read_one_id"
-                                attrs="{'readonly': [('model_id', '=', False)]}"
+                                readonly="model_id == False"
                                 context="{'default_resource': model, 'default_name': context.get('parent_name', '&lt;parent_namespace_name&gt;') + ' / ' + model + ' / read_one'}"
                             >
                                 <form string="Read One Fields">
@@ -98,7 +98,8 @@
                             </field>
                             <field
                                 name="read_many_id"
-                                attrs="{'readonly': [('model_id', '=', False)], 'invisible': [('api_read', '=', False)]}"
+                                readonly="model_id == False"
+                                invisible="api_read == False"
                                 context="{'default_resource': model, 'default_name': context.get('parent_name', '&lt;parent_namespace_name&gt;') + ' / ' + model + ' / read_many'}"
                             >
                                 <form string="Read Many Fields">
@@ -117,11 +118,11 @@
                             </field>
                         </group>
                     </div>
-                    <notebook attrs="{'invisible': [('api_create', '=', False)]}">
+                    <notebook invisible="api_create == False">
                         <page string="Creation Context Presets">
                             <field
                                 name="create_context_ids"
-                                attrs="{'readonly': [('model_id', '=', False)]}"
+                                readonly="model_id == False"
                                 context="{'default_model_id': model_id}"
                             >
                                 <form string="Creation Context Presets">
@@ -149,7 +150,7 @@
                         string="Reset Token"
                         confirm="Do you want to proceed reset token?"
                         type="object"
-                        attrs="{'invisible': [('id', '=', False)]}"
+                        invisible="id == False"
                     />
                 </header>
                 <sheet>
@@ -167,7 +168,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active == True"
                     />
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
